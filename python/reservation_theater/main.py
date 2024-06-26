@@ -1,62 +1,61 @@
-#sistema de reserva para un teatro
-#main hub
-#1. mostrar los asientos
-#2. reservar asientos
-#3. cancelar  reserva
-#4. salir
-
-#opcion 1
-'''
-Estado del teatro
-0 1 0 0 0 0 0 1 0 0
-0 0 1 1 1 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 1 1 0 1 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 1 0 0 0 1 0 1 1
-elige una opcion
-'''
-# si es posible ponerle del 1 al 10 y de a a la j
-
 exit = True
-def  main():
-    print('Bienvenido al sistema de reservas del teatro')
+theater = [[0 for _ in range(10)] for _ in range(5)]
+
+def main():
+    print('Welcome to the theater reservation system')
     while exit:
-        respuesta = presentacion()     
-        comprobar_respuesta(respuesta)  
-#se muestra el menu
-def presentacion ():
-    print('1. Mostrar asientos')
-    print('2. Reservar asientos')
-    print('3. Cancelar asientos')
-    print('4. Salir')
+        response = presentation()
+        check_response(response)
+
+def presentation():
+    print('1. Show seats')
+    print('2. Reserve seats')
+    print('3. Cancel seats')
+    print('4. Exit')
     try:
-        respuesta = int(input('Opcion: '))
+        response = int(input('Option: '))
     except:
-        print('Respuesta invalida')
-    return respuesta
-#comprueba la respuesta
-def comprobar_respuesta(respuesta):
+        print('Invalid response')
+    return response
+
+def check_response(response):
     global exit
-    if respuesta == 1:
-        mostrar_asientos()
-    elif respuesta == 2:
-        reservar_asientos()
-    elif respuesta == 3:
-        cancelar_asiento()
-    elif respuesta == 4:
+    if response == 1:
+        show_seats()
+    elif response == 2:
+        reserve_seats()
+    elif response == 3:
+        cancel_seat()
+    elif response == 4:
         exit = False
-        input('Gracias por usar nuestros servicios')
+        input('Thank you for using our services')
     else:
-        print('Respuesta invalida')
-def mostrar_asientos():
-    print('mostando asientos')
+        print('Invalid response')
+
+def show_seats():
+    for row in theater:
+        print(' '.join(str(seat) for seat in row))
     input()
-def reservar_asientos():
-    mostrar_asientos()
-    input('que asiento quieres reservar:')
-def cancelar_asiento():
-    mostrar_asientos()
-    input('Que asiento quieres cancelar: ')
+
+def reserve_seats():
+    show_seats()
+    row = int(input('1 is top row and 5 is bottom row\nWhich row do you want to reserve: '))
+    seat = int(input('1 is leftmost seat and 10 is rightmost seat\nWhich seat do you want to reserve: '))
+    row -= 1
+    seat -= 1
+    if theater[row][seat] == 0:
+        theater[row][seat] = 1
+        print('Seat reserved')
+
+def cancel_seat():
+    show_seats()
+    row = int(input('1 is top row and 5 is bottom row\nWhich row do you want to cancel: '))
+    seat = int(input('1 is leftmost seat and 10 is rightmost seat\nWhich seat do you want to cancel: '))
+    row -= 1
+    seat -= 1
+    if theater[row][seat] == 1:
+        theater[row][seat] = 0
+        print('Seat canceled')
+
 if __name__ == '__main__':
     main()
