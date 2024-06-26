@@ -1,9 +1,9 @@
 def finder(max, list):
-    sum_esperada = max*(max+1)//2
-    sum_real = sum(list)
-    return sum_esperada - sum_real
+    expected_sum = max*(max+1)//2
+    real_sum = sum(list)
+    return expected_sum - real_sum
 
 list = [0,3,4,2,8,7,6,9,5]
 max = max(list)
-resultado = finder(max, list)
-print(f'el numero faltante es: {resultado}')
+result = finder(max, list)
+print(f'The missing number is: {result}')
